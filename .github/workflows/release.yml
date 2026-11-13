@@ -1,0 +1,42 @@
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: "1.24"
+      - name: Test
+        run: go test ./...
+      - name: Build macOS, Windows and Linux
+        run: |
+          V="${GITHUB_REF_NAME#v}"
+          case "$V" in [0-9]*) ;; *) V="dev" ;; esac
+          VERSION="$V" ./scripts/build.sh
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: iddler
+          path: |
+            dist/*.zip
+            dist/*.exe
+            dist/*.tar.gz
+      - name: Publish release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
+          files: |
+            dist/*.zip
+            dist/*.exe
+            dist/*.tar.gz

@@ -1,0 +1,8 @@
+Fonts bundled with Iddler. All are licensed under the SIL Open Font License, Version 1.1:
+https://openfontlicense.org
+
+Manrope        Copyright 2018 The Manrope Project Authors (https://github.com/sharanda/manrope)
+Exo 2          Copyright 2013 The Exo 2 Project Authors (https://github.com/googlefonts/Exo-2.0)
+JetBrains Mono Copyright 2020 The JetBrains Mono Project Authors (https://github.com/JetBrains/JetBrainsMono)
+
+The fonts are distributed unchanged (WOFF2 subsets from the Fontsource project).

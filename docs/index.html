@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Iddler by excruciation · a Steam hub</title>
+<meta name="description" content="Free, open-source Steam hub for macOS, Windows and Linux: hours, card drops, achievements, keys and freebies for several accounts at once.">
+<meta name="theme-color" content="#3f4a39">
+<link rel="icon" href="logo.svg" type="image/svg+xml">
+<meta property="og:title" content="Iddler by excruciation">
+<meta property="og:description" content="Your Steam, on autopilot. Hours, cards, achievements, inventory &amp; market, keys and freebies for all your accounts.">
+<meta property="og:image" content="https://excruciation69.github.io/iddler/social.png">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+@font-face { font-family: Inter; font-weight: 400; font-display: swap; src: url(fonts/inter-latin-400-normal.woff2) format('woff2'); unicode-range: U+0000-00FF, U+2000-206F; }
+@font-face { font-family: Inter; font-weight: 400; font-display: swap; src: url(fonts/inter-cyrillic-400-normal.woff2) format('woff2'); unicode-range: U+0400-04FF; }
+@font-face { font-family: Inter; font-weight: 600; font-display: swap; src: url(fonts/inter-latin-600-normal.woff2) format('woff2'); unicode-range: U+0000-00FF, U+2000-206F; }
+@font-face { font-family: Inter; font-weight: 600; font-display: swap; src: url(fonts/inter-cyrillic-600-normal.woff2) format('woff2'); unicode-range: U+0400-04FF; }
+@font-face { font-family: Inter; font-weight: 800; font-display: swap; src: url(fonts/inter-latin-800-normal.woff2) format('woff2'); unicode-range: U+0000-00FF, U+2000-206F; }
+@font-face { font-family: Inter; font-weight: 800; font-display: swap; src: url(fonts/inter-cyrillic-800-normal.woff2) format('woff2'); unicode-range: U+0400-04FF; }
+@font-face { font-family: Play; font-weight: 400; font-display: swap; src: url(fonts/play-latin-400-normal.woff2) format('woff2'); unicode-range: U+0000-00FF, U+2000-206F; }
+@font-face { font-family: Play; font-weight: 400; font-display: swap; src: url(fonts/play-cyrillic-400-normal.woff2) format('woff2'); unicode-range: U+0400-04FF; }
+@font-face { font-family: Play; font-weight: 700; font-display: swap; src: url(fonts/play-latin-700-normal.woff2) format('woff2'); unicode-range: U+0000-00FF, U+2000-206F; }
+@font-face { font-family: Play; font-weight: 700; font-display: swap; src: url(fonts/play-cyrillic-700-normal.woff2) format('woff2'); unicode-range: U+0400-04FF; }
+@font-face { font-family: Mono; font-weight: 400; font-display: swap; src: url(fonts/jetbrains-mono-latin-400-normal.woff2) format('woff2'); }
+:root { --bg: #0e0e0e; --panel: #141414; --well: #0b0b0b; --deep: #0b0b0b; --text: #d6d6d6; --dim: #8d8d8d; --faint: #5d5d5d; --accent: #a3d11c; --friend: #f1f1f1; --lo: #000; --hi: #262626; }
+* { box-sizing: border-box; border-radius: 0 !important; }
+html { scroll-behavior: smooth; }
+body { background: #0e0e0e repeating-linear-gradient(45deg, #101010 0 2px, #0c0c0c 2px 4px); }
+body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.6 -apple-system, BlinkMacSystemFont, Inter, "Segoe UI", sans-serif; -webkit-font-smoothing: antialiased; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+.wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+body::before { content: ''; position: fixed; left: 0; right: 0; top: 0; height: 3px; z-index: 10; background: linear-gradient(90deg,#3bc6e6,#cd52d0,#d9e14f,#3bc6e6,#cd52d0); background-size: 200% 100%; animation: rgb 6s linear infinite; }
+@keyframes rgb { to { background-position: -200% 0; } }
+header { position: sticky; top: 0; z-index: 5; background: rgba(14,14,14,.92); backdrop-filter: blur(8px); border-bottom: 1px solid var(--lo); box-shadow: 0 1px 0 var(--hi); }
+header .wrap { height: 60px; display: flex; align-items: center; gap: 22px; }
+.brand { display: flex; align-items: center; gap: 10px; color: var(--text); }
+.brand:hover { text-decoration: none; }
+.brand img { width: 28px; height: 28px; }
+.brand b { font-weight: 800; letter-spacing: .24em; }
+.brand span { font: 12px Mono, monospace; color: var(--accent); border-left: 1px solid var(--hi); padding-left: 10px; }
+nav { margin-left: auto; display: flex; gap: 20px; font-size: 14px; }
+nav a { color: var(--dim); }
+nav a:hover { color: var(--text); text-decoration: none; }
+.lang { display: flex; border: 1px solid var(--lo); border-radius: 4px; overflow: hidden; }
+.lang button { border: 0; background: var(--panel); color: var(--dim); font: 600 11px Mono, monospace; padding: 4px 10px; cursor: pointer; letter-spacing: .08em; }
+.lang button.on { background: #1f1f1f; color: var(--accent); }
+.hero { padding: 72px 0 40px; text-align: center; }
+.hero h1 { margin: 0 0 14px; font-size: clamp(32px, 6vw, 56px); line-height: 1.1; font-weight: 800; letter-spacing: -.02em; }
+.hero h1 em { font-style: normal; color: var(--accent); }
+.hero p { margin: 0 auto 28px; max-width: 640px; color: var(--dim); font-size: 18px; }
+.btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.btn { display: inline-flex; align-items: center; gap: 8px; height: 42px; padding: 0 22px; font-weight: 700; border: 1px solid #000; box-shadow: inset 0 0 0 1px #2c2c2c; color: var(--text); background: linear-gradient(#1f1f1f,#171717); }
+.btn:hover { text-decoration: none; filter: brightness(1.08); }
+.btn.primary { color: var(--accent); box-shadow: inset 0 0 0 1px #4a5f12; }
+.shot { margin: 44px auto 0; max-width: 1000px; overflow: hidden; border: 1px solid #262626; box-shadow: 0 0 0 1px #000, 0 30px 80px rgba(163,209,28,.08); }
+.shot img { display: block; width: 100%; height: auto; }
+section { padding: 64px 0; }
+section h2 { font-size: 30px; margin: 0 0 8px; letter-spacing: -.01em; }
+section .lead { color: var(--dim); margin: 0 0 30px; max-width: 700px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 14px; }
+.card { background: var(--panel); border: 1px solid var(--hi); box-shadow: 0 0 0 1px #000; border-radius: 6px; padding: 18px; }
+.card h3 { margin: 0 0 6px; font-size: 15px; color: var(--accent); text-transform: uppercase; letter-spacing: .08em; }
+.card p { margin: 0; color: var(--dim); font-size: 14.5px; }
+.gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.gallery figure { margin: 0; }
+.gallery img { width: 100%; display: block; border-radius: 8px; border: 1px solid var(--lo); }
+.gallery figcaption { color: var(--faint); font-size: 13px; margin-top: 6px; }
+.phone { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; align-items: center; }
+.phone img { width: 100%; max-width: 440px; justify-self: center; }
+.steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.steps .card b { display: block; color: var(--text); margin-bottom: 6px; }
+code, pre { font-family: Mono, monospace; font-size: 13px; }
+pre { background: var(--deep); border: 1px solid var(--lo); border-radius: 5px; padding: 12px 14px; overflow-x: auto; color: var(--friend); margin: 10px 0 0; white-space: pre-wrap; word-break: break-all; }
+.support { display: grid; grid-template-columns: 200px 1fr; gap: 28px; align-items: center; }
+.support img { width: 200px; border-radius: 14px; box-shadow: 0 10px 24px rgba(0,0,0,.3); }
+footer { border-top: 1px solid var(--lo); box-shadow: inset 0 1px 0 var(--hi); padding: 26px 0; color: var(--faint); font-size: 13px; }
+footer .wrap { display: flex; gap: 16px; flex-wrap: wrap; justify-content: space-between; }
+html:not([lang=en]) [data-l=en], html:not([lang=ru]) [data-l=ru] { display: none !important; }
+@media (max-width: 760px) {
+  nav { display: none; }
+  .lang { margin-left: auto; }
+  .gallery, .phone, .steps, .support { grid-template-columns: 1fr; }
+  .support { justify-items: center; text-align: center; }
+  .brand span { display: none; }
+}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <a class="brand" href="#"><img src="logo.svg" alt=""><b>IDDLER</b><span>by excruciation</span></a>
+  <nav>
+    <a href="#features"><span data-l="en">Features</span><span data-l="ru">Возможности</span></a>
+    <a href="#screens"><span data-l="en">Screens</span><span data-l="ru">Скриншоты</span></a>
+    <a href="#install"><span data-l="en">Install</span><span data-l="ru">Установка</span></a>
+    <a href="https://github.com/excruciation69/iddler">GitHub</a>
+  </nav>
+  <div class="lang"><button data-set="ru">RU</button><button data-set="en">ENG</button></div>
+</div></header>
+
+<div class="wrap hero">
+  <h1><span data-l="en">Your Steam, <em>on autopilot</em></span><span data-l="ru">Твой Steam <em>на автопилоте</em></span></h1>
+  <p data-l="en">Hours, card drops, achievements, an inventory and market manager, keys and freebies for all your accounts at once. Free, open source, and Steam itself doesn't even need to be running.</p>
+  <p data-l="ru">Часы, карточки, ачивки, инвентарь и маркет, ключи и халява сразу для всех твоих аккаунтов. Бесплатно, с открытым кодом, и сам Steam даже не нужно запускать.</p>
+  <div class="btns">
+    <a class="btn primary" href="https://github.com/excruciation69/iddler/releases/latest"><span data-l="en">Download</span><span data-l="ru">Скачать</span></a>
+    <a class="btn" href="https://github.com/excruciation69/iddler"><span data-l="en">Source code</span><span data-l="ru">Исходный код</span></a>
+  </div>
+  <div class="shot"><img src="screenshots/hub-en.png" data-l="en" alt="Iddler hub"><img src="screenshots/hub-ru.png" data-l="ru" alt="Хаб Iddler"></div>
+</div>
+
+<section id="features"><div class="wrap">
+  <h2><span data-l="en">Everything in one window</span><span data-l="ru">Всё в одном окне</span></h2>
+  <p class="lead"><span data-l="en">Add your accounts, open one and switch on what you need inside its section.</span><span data-l="ru">Добавь аккаунты, открой нужный и включи то, что надо, прямо в разделе.</span></p>
+  <div class="grid">
+    <div class="card"><h3 data-l="en">Hours</h3><h3 data-l="ru">Накрутка часов</h3><p data-l="en">Up to 32 games per account, hour goals per game and a schedule.</p><p data-l="ru">До 32 игр на аккаунт, цели по часам для каждой игры и расписание.</p></div>
+    <div class="card"><h3 data-l="en">Card farming</h3><h3 data-l="ru">Фарм карточек</h3><p data-l="en">Idles games with drops left until they run out, with the two-hour rule, skip and only-these lists, then moves on to hours.</p><p data-l="ru">Крутит игры с оставшимися карточками до последней, с правилом двух часов и списками «пропускать» и «только эти», а потом переходит к часам.</p></div>
+    <div class="card"><h3 data-l="en">Achievements</h3><h3 data-l="ru">Ачивки</h3><p data-l="en">Open or close them all at once, or one by one with random pauses inside your own time window.</p><p data-l="ru">Открывай и закрывай все сразу или по одной, со случайными паузами и только в заданные часы.</p></div>
+    <div class="card"><h3 data-l="en">Inventory &amp; market</h3><h3 data-l="ru">Инвентарь и маркет</h3><p data-l="en">Live prices, sell one item, a selection or every duplicate, manage listings, confirm them with a .maFile and search the market.</p><p data-l="ru">Цены в реальном времени, продажа одного предмета, выбранных или всех дубликатов, управление лотами, подтверждение через .maFile и поиск по маркету.</p></div>
+    <div class="card"><h3 data-l="en">Many accounts</h3><h3 data-l="ru">Много аккаунтов</h3><p data-l="en">Add accounts with a password or a QR code from the Steam app and switch between them in one click.</p><p data-l="ru">Добавляй аккаунты по паролю или QR-коду из приложения Steam и переключайся между ними в один клик.</p></div>
+    <div class="card"><h3 data-l="en">Keys</h3><h3 data-l="ru">Ключи</h3><p data-l="en">Paste any text: keys are found, queued and activated, with full history.</p><p data-l="ru">Вставь любой текст: ключи найдутся и активируются по очереди, с полной историей.</p></div>
+    <div class="card"><h3 data-l="en">Freebies</h3><h3 data-l="ru">Халява</h3><p data-l="en">Free giveaways, the sale queue, the free sticker and wishlist deals.</p><p data-l="ru">Бесплатные раздачи, очередь распродажи, бесплатная наклейка и скидки из вишлиста.</p></div>
+    <div class="card"><h3 data-l="en">Profile</h3><h3 data-l="ru">Профиль</h3><p data-l="en">Custom game names for friends, day and night nicknames, an auto-reply.</p><p data-l="ru">Свои названия игр для друзей, дневной и ночной ник, автоответ.</p></div>
+    <div class="card"><h3 data-l="en">Statistics</h3><h3 data-l="ru">Статистика</h3><p data-l="en">Hours per day and per game, Steam level and inventory value.</p><p data-l="ru">Часы по дням и играм, уровень Steam и стоимость инвентаря.</p></div>
+    <div class="card"><h3 data-l="en">Telegram and phone</h3><h3 data-l="ru">Telegram и телефон</h3><p data-l="en">Control it from your own bot or open the hub on your phone over Wi-Fi.</p><p data-l="ru">Управляй через своего бота или открой хаб на телефоне по Wi-Fi.</p></div>
+  </div>
+</div></section>
+
+<section id="screens"><div class="wrap">
+  <h2><span data-l="en">A look inside</span><span data-l="ru">Как это выглядит</span></h2>
+  <p class="lead"><span data-l="en">Dark panels, a running RGB line and your own accent colour. Russian and English built in.</span><span data-l="ru">Тёмные панели, бегущая RGB-линия и свой цвет акцента. Русский и английский внутри.</span></p>
+  <div class="gallery">
+    <figure><img src="screenshots/hours.png" alt="" loading="lazy"><figcaption><span data-l="en">Hours</span><span data-l="ru">Накрутка часов</span></figcaption></figure>
+    <figure><img src="screenshots/inventory.png" alt="" loading="lazy"><figcaption><span data-l="en">Inventory &amp; market</span><span data-l="ru">Инвентарь и маркет</span></figcaption></figure>
+    <figure><img src="screenshots/achievements.png" alt="" loading="lazy"><figcaption><span data-l="en">Achievements</span><span data-l="ru">Ачивки</span></figcaption></figure>
+    <figure><img src="screenshots/keys.png" alt="" loading="lazy"><figcaption><span data-l="en">Keys</span><span data-l="ru">Ключи</span></figcaption></figure>
+    <figure><img src="screenshots/profile.png" alt="" loading="lazy"><figcaption><span data-l="en">Profile & status</span><span data-l="ru">Профиль и статус</span></figcaption></figure>
+    <figure><img src="screenshots/stats.png" alt="" loading="lazy"><figcaption><span data-l="en">Statistics</span><span data-l="ru">Статистика</span></figcaption></figure>
+  </div>
+  <div class="phone" style="margin-top:40px">
+    <div><h2><span data-l="en">On your phone too</span><span data-l="ru">И на телефоне</span></h2>
+      <p class="lead" data-l="en">Turn on the phone panel, scan the QR code, and the whole hub opens in the phone's browser on the same Wi-Fi.</p>
+      <p class="lead" data-l="ru">Включи панель для телефона, отсканируй QR-код, и весь хаб откроется в браузере телефона в той же сети Wi-Fi.</p></div>
+    <img src="screenshots/phone.png" alt="" loading="lazy">
+  </div>
+</div></section>
+
+<section id="install"><div class="wrap">
+  <h2><span data-l="en">Install</span><span data-l="ru">Установка</span></h2>
+  <div class="steps">
+    <div class="card"><b>macOS 11+</b>
+      <span data-l="en">Move Iddler.app to Applications and run once in Terminal:</span><span data-l="ru">Перетащи Iddler.app в «Программы» и один раз выполни в Терминале:</span>
+      <pre>xattr -cr /Applications/Iddler.app && codesign --force --deep -s - /Applications/Iddler.app</pre></div>
+    <div class="card"><b>Windows 10/11</b>
+      <span data-l="en">Run the .exe. If SmartScreen warns you: More info, then Run anyway. The icon lives in the tray.</span><span data-l="ru">Запусти .exe. Если SmartScreen предупредит: «Подробнее», затем «Выполнить в любом случае». Значок живёт в трее.</span></div>
+    <div class="card"><b>Linux</b>
+      <span data-l="en">Unpack and run; the hub opens in your browser.</span><span data-l="ru">Распакуй и запусти, хаб откроется в браузере.</span>
+      <pre>tar -xzf Iddler-*-linux-amd64.tar.gz && ./iddler</pre></div>
+  </div>
+</div></section>
+
+<section id="support"><div class="wrap support">
+  <img src="donate-qr.png" alt="USDT TRC20">
+  <div>
+    <h2><span data-l="en">Support the author</span><span data-l="ru">Поддержать автора</span></h2>
+    <p class="lead" data-l="en">Iddler is free. If it saves you time, a tip keeps new features coming.</p>
+    <p class="lead" data-l="ru">Iddler бесплатный. Если он экономит тебе время, поддержка помогает делать новые функции.</p>
+    <p><b>USDT · TRC20</b><br><code>TUWXd4f3g3pSjxEgM7upWtCBdn774dJgPu</code></p>
+    <p><b>Binance Pay ID</b><br><code>446743475</code></p>
+    <p><a href="https://steamcommunity.com/groups/iddle2003"><span data-l="en">Iddler group on Steam</span><span data-l="ru">Группа Iddler в Steam</span></a></p>
+  </div>
+</div></section>
+
+<footer><div class="wrap">
+  <span>Iddler by excruciation · MIT</span>
+  <span data-l="en">Not affiliated with Valve. Steam is a trademark of Valve Corporation.</span>
+  <span data-l="ru">Проект не связан с Valve. Steam является товарным знаком Valve Corporation.</span>
+</div></footer>
+<script>
+  const set = l => {
+    document.documentElement.lang = l;
+    document.querySelectorAll('.lang button').forEach(b => b.classList.toggle('on', b.dataset.set === l));
+    try { localStorage.setItem('lang', l); } catch {}
+  };
+  let saved = null;
+  try { saved = localStorage.getItem('lang'); } catch {}
+  set(saved || ((navigator.language || '').startsWith('ru') ? 'ru' : 'en'));
+  document.querySelectorAll('.lang button').forEach(b => b.onclick = () => set(b.dataset.set));
+</script>
+</body>
+</html>

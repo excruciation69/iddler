@@ -1,0 +1,15 @@
+name: Feature request
+description: Suggest an idea for Iddler
+labels: [enhancement]
+body:
+  - type: textarea
+    id: idea
+    attributes:
+      label: What would you like Iddler to do?
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: Why is it useful?
+      description: The problem it solves or the time it saves.

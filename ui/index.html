@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b0b0b">
+<title>Iddler</title>
+<link rel="icon" href="icon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="icon-192.png" sizes="192x192" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="manifest.json">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="Iddler">
+<link rel="preload" href="fonts/manrope-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/manrope-cyrillic-500-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app">
+  <div class="rgb" aria-hidden="true"><i></i></div>
+  <div class="rgb-glow" aria-hidden="true"><i></i></div>
+
+  <aside class="side">
+    <div class="brand" id="brand"><img src="logo.svg" alt=""><div><span class="word">IDDLER</span><span class="by">by excruciation</span></div></div>
+    <nav class="nav" id="nav"></nav>
+    <div class="me" id="me"></div>
+  </aside>
+
+  <header class="top">
+    <div class="title" id="title"></div>
+    <div class="center" id="center"></div>
+    <div class="right" id="topRight"></div>
+  </header>
+
+  <main class="stage" id="stage"></main>
+  <nav class="tabbar" id="tabbar"></nav>
+</div>
+<script src="vendor-qrcode.js" defer></script>
+<script src="js/core.js" defer></script>
+<script src="js/ui.js" defer></script>
+<script src="js/hub.js" defer></script>
+<script src="js/account.js" defer></script>
+<script src="js/sec-hours.js" defer></script>
+<script src="js/sec-cards.js" defer></script>
+<script src="js/sec-ach.js" defer></script>
+<script src="js/sec-inventory.js" defer></script>
+<script src="js/sec-tools.js" defer></script>
+<script src="js/sec-stats.js" defer></script>
+<script src="js/pages.js" defer></script>
+<script src="js/shell.js" defer></script>
+</body>
+</html>
