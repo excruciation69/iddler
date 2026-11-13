@@ -23,12 +23,12 @@ func New() Platform { return mac{} }
 
 func DataDir() string {
 	home, _ := os.UserHomeDir()
-	return filepath.Join(home, "Library", "Application Support", "Iddler")
+	return filepath.Join(home, "Library", "Application Support", "SteamIdler")
 }
 
 // ---- secrets: an encrypted vault whose 32-byte master key lives in the Keychain
 
-const keychainService = "Iddler"
+const keychainService = "SteamIdler"
 
 func (mac) Secrets(dir string) Secrets {
 	return sharedVault(dir, keychainKey{fileKey{filepath.Join(dir, "vault.key")}}, keychainGet)
@@ -37,7 +37,11 @@ func (mac) Secrets(dir string) Secrets {
 func quote(s string) string { return `"` + strings.NewReplacer(`\`, `\\`, `"`, `\"`).Replace(s) + `"` }
 
 func keychainGet(account string) (string, error) {
-	out, err := exec.Command("/usr/bin/security", "find-generic-password", "-a", account, "-s", keychainService, "-w").Output()
+	return keychainRead(account, keychainService)
+}
+
+func keychainRead(account, service string) (string, error) {
+	out, err := exec.Command("/usr/bin/security", "find-generic-password", "-a", account, "-s", service, "-w").Output()
 	return strings.TrimSpace(string(out)), err
 }
 
@@ -47,13 +51,17 @@ func (k keychainKey) load() (string, error) {
 	if h, err := keychainGet("vault-key"); err == nil && len(h) == 64 {
 		return h, nil
 	}
+	if h, err := keychainRead("vault-key", legacyName); err == nil && len(h) == 64 {
+		k.save(h) // copy the key from the old name
+		return h, nil
+	}
 	return k.fallback.load()
 }
 
 func (k keychainKey) save(h string) error {
 	cmd := exec.Command("/usr/bin/security", "-i")
 	cmd.Stdin = strings.NewReader(fmt.Sprintf("add-generic-password -U -a %s -s %s -l %s -w %s\n",
-		quote("vault-key"), quote(keychainService), quote("Iddler vault"), quote(h)))
+		quote("vault-key"), quote(keychainService), quote("SteamIdler vault"), quote(h)))
 	cmd.Run()
 	if got, err := keychainGet("vault-key"); err == nil && got == h {
 		return nil
@@ -84,7 +92,7 @@ func LegacyAccount() (account, token string) {
 
 // ---- login item (LaunchAgent)
 
-const agentLabel = "com.excruciation.iddler"
+const agentLabel = "com.excruciation.steamidler"
 
 func agentPath() string {
 	home, _ := os.UserHomeDir()
@@ -146,11 +154,11 @@ func (mac) Clipboard() string {
 //
 // The window, the Dock icon and the menu bar square live in a small helper app that macOS builds
 // on first launch: osacompile turns menubar.js (JavaScript for Automation) into a stay-open applet,
-// and Iddler gives it its name and icon. Being a real app bundle is what puts "Iddler" in the Dock.
+// and SteamIdler gives it its name and icon. Being a real app bundle is what puts "SteamIdler" in the Dock.
 // If that fails for any reason, the same script runs under osascript (menu bar only), and if even
 // that fails, the hub opens in the browser.
 
-const shellID = "com.excruciation.iddler.window"
+const shellID = "com.excruciation.steamidler.window"
 
 // appletRecipe changes whenever buildApplet changes, so existing helpers get rebuilt.
 const appletRecipe = "2"
@@ -161,7 +169,7 @@ func StartShell(c ShellConfig) error {
 		return err
 	}
 	dir, _ := json.Marshal(c.Dir)
-	script := strings.Replace(string(c.Asset), "__IDDLER_DIR__", string(dir), 1)
+	script := strings.Replace(string(c.Asset), "__STEAMIDLER_DIR__", string(dir), 1)
 	if app, err := buildApplet(c.Dir, script, c.Icon); err == nil {
 		go supervise(app, c)
 		return nil
@@ -176,8 +184,8 @@ func buildApplet(dir, script string, icon []byte) (string, error) {
 	sum := sha256.Sum256(append([]byte(appletRecipe+script), icon...))
 	stamp := hex.EncodeToString(sum[:8])
 	root := filepath.Join(dir, "Shell")
-	app := filepath.Join(root, "Iddler.app")
-	stampPath := filepath.Join(app, "Contents", "Resources", "iddler.stamp")
+	app := filepath.Join(root, "SteamIdler.app")
+	stampPath := filepath.Join(app, "Contents", "Resources", "steamidler.stamp")
 	if old, err := os.ReadFile(stampPath); err == nil && string(old) == stamp {
 		return app, nil
 	}
@@ -186,7 +194,7 @@ func buildApplet(dir, script string, icon []byte) (string, error) {
 	if err := os.WriteFile(src, []byte(script), 0o600); err != nil {
 		return "", err
 	}
-	tmp := filepath.Join(root, "Iddler-build.app")
+	tmp := filepath.Join(root, "SteamIdler-build.app")
 	os.RemoveAll(tmp)
 	run := func(name string, args ...string) error {
 		out, err := exec.Command(name, args...).CombinedOutput()
@@ -205,7 +213,7 @@ func buildApplet(dir, script string, icon []byte) (string, error) {
 		os.Remove(filepath.Join(res, "Assets.car"))
 	}
 	plist := filepath.Join(tmp, "Contents", "Info.plist")
-	for _, kv := range [][2]string{{"CFBundleName", "Iddler"}, {"CFBundleDisplayName", "Iddler"}, {"CFBundleIdentifier", shellID}} {
+	for _, kv := range [][2]string{{"CFBundleName", "SteamIdler"}, {"CFBundleDisplayName", "SteamIdler"}, {"CFBundleIdentifier", shellID}} {
 		if err := run("/usr/bin/plutil", "-replace", kv[0], "-string", kv[1], plist); err != nil {
 			return "", err
 		}
@@ -214,7 +222,7 @@ func buildApplet(dir, script string, icon []byte) (string, error) {
 	run("/usr/bin/plutil", "-remove", "LSUIElement", plist)
 	run("/usr/bin/plutil", "-remove", "CFBundleIconName", plist)
 	run("/usr/bin/plutil", "-replace", "CFBundleIconFile", "-string", "applet", plist)
-	if err := os.WriteFile(filepath.Join(res, "iddler.stamp"), []byte(stamp), 0o644); err != nil {
+	if err := os.WriteFile(filepath.Join(res, "steamidler.stamp"), []byte(stamp), 0o644); err != nil {
 		return "", err
 	}
 	// editing the bundle broke osacompile's signature; an ad-hoc one keeps macOS happy
@@ -268,4 +276,19 @@ func runScript(c ShellConfig, script string) error {
 		c.OnExit()
 	}()
 	return nil
+}
+
+// MigrateLegacy moves an install made under the old name. It reports whether the old
+// login item was on, so the caller can turn it on again under the new name.
+func MigrateLegacy() (loginItem bool) {
+	home, _ := os.UserHomeDir()
+	moveDir(filepath.Join(home, "Library", "Application Support", legacyName), DataDir())
+	os.RemoveAll(filepath.Join(DataDir(), "Shell", legacyName+".app"))
+	old := filepath.Join(home, "Library", "LaunchAgents", "com.excruciation.iddler.plist")
+	if _, err := os.Stat(old); err == nil {
+		exec.Command("/bin/launchctl", "unload", old).Run()
+		os.Remove(old)
+		return true
+	}
+	return false
 }

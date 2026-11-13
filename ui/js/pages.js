@@ -33,7 +33,7 @@ function SettingsPage() {
       group(t('set.look'), hint(t('set.accentHint')), accentBox),
       group(t('set.language'), langBox,
         h('div.label', { style: 'margin-top:8px', text: t('set.about') }),
-        h('div.dim', { text: 'Iddler by excruciation · ' + t('set.version', S.hub.version) }),
+        h('div.dim', { text: 'SteamIdler by excruciation · ' + t('set.version', S.hub.version) }),
         h('div.row', null, btn('GitHub', () => openURL(GITHUB), 'sm', 'star'))))));
   langBox.append(...[['ru', 'Русский'], ['en', 'English']].map(([l, n]) => {
     const r = makeToggle('radio', n, S.lang === l, on => on && setLang(l, true));

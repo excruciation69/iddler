@@ -7,8 +7,8 @@ import (
 	"testing"
 	"time"
 
-	"iddler/internal/steam"
-	"iddler/internal/steam/steamtest"
+	"steamidler/internal/steam"
+	"steamidler/internal/steam/steamtest"
 )
 
 type host struct {

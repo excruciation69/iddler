@@ -4,8 +4,8 @@ import (
 	"testing"
 	"time"
 
-	"iddler/internal/steam"
-	"iddler/internal/steam/steamtest"
+	"steamidler/internal/steam"
+	"steamidler/internal/steam/steamtest"
 )
 
 func TestFees(t *testing.T) {

@@ -9,7 +9,7 @@ import (
 	"strings"
 	"time"
 
-	"iddler/internal/steam"
+	"steamidler/internal/steam"
 )
 
 // ItemGroup is every copy of one item: the interface shows and sells stacks, not single assets.

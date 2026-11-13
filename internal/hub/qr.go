@@ -11,8 +11,8 @@ import (
 	"path/filepath"
 	"time"
 
-	"iddler/internal/bot"
-	"iddler/internal/steam"
+	"steamidler/internal/bot"
+	"steamidler/internal/steam"
 )
 
 // QRState is what the interface polls while the QR code is on screen.
@@ -38,7 +38,7 @@ func (h *Hub) StartQR() (QRState, error) {
 	}
 	cm.Hello()
 	host, _ := os.Hostname()
-	s, res, err := cm.BeginQR("Iddler · " + host)
+	s, res, err := cm.BeginQR("SteamIdler · " + host)
 	if err != nil || res != steam.ResOK {
 		cm.Close()
 		if err == nil {

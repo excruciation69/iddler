@@ -1,5 +1,5 @@
 // Package steam is a small Steam client: CM connection over WebSocket, login, and the
-// handful of messages Iddler needs. Message and field numbers follow SteamDatabase/Protobufs.
+// handful of messages SteamIdler needs. Message and field numbers follow SteamDatabase/Protobufs.
 package steam
 
 import (
@@ -58,7 +58,7 @@ const (
 	NonSteamGameID = 15190414816125648896
 )
 
-// EResult values used by Iddler
+// EResult values used by SteamIdler
 const (
 	ResOK                   = 1
 	ResFail                 = 2

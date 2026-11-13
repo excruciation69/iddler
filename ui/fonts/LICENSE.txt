@@ -1,4 +1,4 @@
-Fonts bundled with Iddler. All are licensed under the SIL Open Font License, Version 1.1:
+Fonts bundled with SteamIdler. All are licensed under the SIL Open Font License, Version 1.1:
 https://openfontlicense.org
 
 Manrope        Copyright 2018 The Manrope Project Authors (https://github.com/sharanda/manrope)

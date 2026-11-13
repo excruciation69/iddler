@@ -41,7 +41,7 @@ func wsDial(hostport, path string, timeout time.Duration) (*wsConn, error) {
 	keyRaw := make([]byte, 16)
 	rand.Read(keyRaw)
 	key := base64.StdEncoding.EncodeToString(keyRaw)
-	req := fmt.Sprintf("GET %s HTTP/1.1\r\nHost: %s\r\nUpgrade: websocket\r\nConnection: Upgrade\r\nSec-WebSocket-Key: %s\r\nSec-WebSocket-Version: 13\r\nUser-Agent: Iddler\r\n\r\n", path, host, key)
+	req := fmt.Sprintf("GET %s HTTP/1.1\r\nHost: %s\r\nUpgrade: websocket\r\nConnection: Upgrade\r\nSec-WebSocket-Key: %s\r\nSec-WebSocket-Version: 13\r\nUser-Agent: SteamIdler\r\n\r\n", path, host, key)
 	conn.SetDeadline(time.Now().Add(timeout))
 	if _, err := conn.Write([]byte(req)); err != nil {
 		conn.Close()

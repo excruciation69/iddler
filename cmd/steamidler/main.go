@@ -1,5 +1,5 @@
-// Iddler: a Steam hub for macOS and Windows. Hours, cards, achievements, keys and more,
-// for several accounts at once. https://github.com/excruciation69/iddler
+// SteamIdler: a Steam hub for macOS and Windows. Hours, cards, achievements, keys and more,
+// for several accounts at once. https://github.com/excruciation69/SteamIdler
 package main
 
 import (
@@ -15,10 +15,10 @@ import (
 	"syscall"
 	"time"
 
-	"iddler/internal/hub"
-	"iddler/internal/platform"
-	"iddler/internal/server"
-	"iddler/ui"
+	"steamidler/internal/hub"
+	"steamidler/internal/platform"
+	"steamidler/internal/server"
+	"steamidler/ui"
 )
 
 type instance struct {
@@ -34,6 +34,7 @@ func main() {
 	debug.SetGCPercent(50) // the app mostly sleeps: keep the heap small
 	debug.SetMemoryLimit(64 << 20)
 
+	loginWasOn := platform.MigrateLegacy()
 	dir := platform.DataDir()
 	os.MkdirAll(dir, 0o700)
 	instPath := filepath.Join(dir, "instance.json")
@@ -78,7 +79,7 @@ func main() {
 	go func() { <-sig; quit() }()
 
 	h.Start()
-	if p.LoginItemEnabled() {
+	if loginWasOn || p.LoginItemEnabled() {
 		p.SetLoginItem(true) // refresh the path and arguments after an update or a move
 	}
 	if !*background {

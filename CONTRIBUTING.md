@@ -1,17 +1,17 @@
 # Contributing
 
-Thanks for wanting to make Iddler better!
+Thanks for wanting to make SteamIdler better!
 
 ## Before you start
 
-- For bugs, open an issue with the steps to reproduce, your OS and the Iddler version (Settings → About).
+- For bugs, open an issue with the steps to reproduce, your OS and the SteamIdler version (Settings → About).
 - For new features, open an issue first so we can agree on the idea before you spend time on code.
 
 ## Development
 
 ```sh
 go test -race ./...                       # the engine is tested against a fake Steam
-IDDLER_UI_DIR=$PWD/ui UI_SERVE=1 go test ./internal/server -run TestServeUI -timeout 1h
+STEAMIDLER_UI_DIR=$PWD/ui UI_SERVE=1 go test ./internal/server -run TestServeUI -timeout 1h
 ```
 
 The second command starts a demo hub with sample accounts; edit files in `ui/` and reload the page.

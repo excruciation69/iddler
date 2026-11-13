@@ -1,4 +1,4 @@
-/* Iddler by excruciation
+/* SteamIdler by excruciation
    Dark panels with hairline double borders, a running RGB line on top and one accent colour
    (changeable in Settings). Manrope for text, Exo 2 for numbers and headings. */
 
@@ -98,7 +98,8 @@ code, .c-k, .field.mono { font-family: var(--code); }
 .brand { height: var(--top); flex: none; display: flex; align-items: center; gap: 11px; padding: 0 18px; cursor: pointer; border-bottom: 1px solid var(--edge); box-shadow: 0 1px 0 var(--line); }
 .brand img { width: 30px; height: 30px; transition: transform .5s var(--ease); }
 .brand:hover img { transform: rotate(90deg); }
-.brand .word { font: 700 16px/1 var(--num); letter-spacing: .26em; color: #f2f2f2; }
+.brand .word { font: 700 15px/1 var(--num); letter-spacing: .16em; color: #f2f2f2; }
+.brand .word i { font-style: normal; color: var(--accent); }
 .brand .by { display: block; margin-top: 4px; font: 500 10.5px/1 var(--ui); letter-spacing: .04em; color: var(--accent); }
 .nav { flex: 1; min-height: 0; overflow-y: auto; padding: 12px 10px; display: flex; flex-direction: column; gap: 1px; }
 .nav .lbl { padding: 14px 10px 6px; font: 700 10px/1 var(--ui); letter-spacing: .14em; text-transform: uppercase; color: var(--faint); }

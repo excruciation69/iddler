@@ -1,7 +1,7 @@
 package steam
 
 // Web session: steamcommunity.com / store / Web API with the access token, plus the page parsers
-// Iddler needs (badges, inventory, prices, free promos).
+// SteamIdler needs (badges, inventory, prices, free promos).
 
 import (
 	"crypto/rand"

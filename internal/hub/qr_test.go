@@ -4,8 +4,8 @@ import (
 	"testing"
 	"time"
 
-	"iddler/internal/platform"
-	"iddler/internal/steam/steamtest"
+	"steamidler/internal/platform"
+	"steamidler/internal/steam/steamtest"
 )
 
 func TestQRSignIn(t *testing.T) {

@@ -1,6 +1,6 @@
 {
- "name": "Iddler",
- "short_name": "Iddler",
+ "name": "SteamIdler",
+ "short_name": "SteamIdler",
  "start_url": "./",
  "display": "standalone",
  "background_color": "#0b0b0b",

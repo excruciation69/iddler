@@ -8,7 +8,7 @@ import (
 	"strings"
 	"time"
 
-	"iddler/internal/steam"
+	"steamidler/internal/steam"
 )
 
 const maxSlots = 32

@@ -16,7 +16,7 @@ import (
 	"sync"
 	"time"
 
-	"iddler/internal/bot"
+	"steamidler/internal/bot"
 )
 
 var TelegramAPI = "https://api.telegram.org"

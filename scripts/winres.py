@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Builds rsrc_windows_<arch>.syso with the app icon, so the Go linker embeds it in the .exe.
-Usage: python3 scripts/winres.py ui/icon.ico cmd/iddler"""
+Usage: python3 scripts/winres.py ui/icon.ico cmd/steamidler"""
 import os, struct, sys
 
 MACHINE = {"amd64": (0x8664, 3), "arm64": (0xAA64, 2)}  # machine, ADDR32NB relocation type

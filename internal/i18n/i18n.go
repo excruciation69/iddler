@@ -7,7 +7,7 @@ import (
 	"strings"
 	"sync"
 
-	"iddler/ui"
+	"steamidler/ui"
 )
 
 var (

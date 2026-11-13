@@ -105,7 +105,7 @@ function logLine(l) {
   const s = S.hub?.accounts?.find(a => a.id === l.account);
   return h('div.ln', null,
     h('span.ts', { text: fmtTime(l.at) }),
-    h('span.src', { text: s ? (s.name || s.account) : 'Iddler' }),
+    h('span.src', { text: s ? (s.name || s.account) : 'SteamIdler' }),
     h('span', { class: l.kind === 'err' ? 'err' : l.kind === 'warn' ? 'warn' : l.kind === 'ok' ? 'ok' : '', text: t(l.key, ...(l.args || []).map(tr)) }));
 }
 

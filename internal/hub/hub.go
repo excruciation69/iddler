@@ -12,10 +12,10 @@ import (
 	"sync"
 	"time"
 
-	"iddler/internal/bot"
-	"iddler/internal/i18n"
-	"iddler/internal/platform"
-	"iddler/internal/steam"
+	"steamidler/internal/bot"
+	"steamidler/internal/i18n"
+	"steamidler/internal/platform"
+	"steamidler/internal/steam"
 )
 
 type Settings struct {
@@ -268,7 +268,7 @@ func (h *Hub) Notify(category, key string, args ...string) {
 	text := h.T(key, args...)
 	switch key {
 	case "notify.goal", "notify.cardsDone", "notify.free", "notify.deal", "notify.key":
-		h.p.Notify("Iddler", text)
+		h.p.Notify("SteamIdler", text)
 	}
 	h.tg.notify(category, text)
 }

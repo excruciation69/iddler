@@ -11,7 +11,7 @@ import (
 	"strings"
 	"time"
 
-	"iddler/internal/steam"
+	"steamidler/internal/steam"
 )
 
 type Summary struct {

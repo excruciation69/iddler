@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Iddler by excruciation · a Steam hub</title>
+<title>SteamIdler by excruciation · a Steam idler for every account</title>
 <meta name="description" content="Free, open-source Steam hub for macOS, Windows and Linux: hours, card drops, achievements, keys and freebies for several accounts at once.">
 <meta name="theme-color" content="#3f4a39">
 <link rel="icon" href="logo.svg" type="image/svg+xml">
-<meta property="og:title" content="Iddler by excruciation">
+<meta property="og:title" content="SteamIdler by excruciation">
 <meta property="og:description" content="Your Steam, on autopilot. Hours, cards, achievements, inventory &amp; market, keys and freebies for all your accounts.">
-<meta property="og:image" content="https://excruciation69.github.io/iddler/social.png">
+<meta property="og:image" content="https://excruciation69.github.io/SteamIdler/social.png">
 <meta name="twitter:card" content="summary_large_image">
 <style>
 @font-face { font-family: Inter; font-weight: 400; font-display: swap; src: url(fonts/inter-latin-400-normal.woff2) format('woff2'); unicode-range: U+0000-00FF, U+2000-206F; }
@@ -38,7 +38,8 @@ header .wrap { height: 60px; display: flex; align-items: center; gap: 22px; }
 .brand { display: flex; align-items: center; gap: 10px; color: var(--text); }
 .brand:hover { text-decoration: none; }
 .brand img { width: 28px; height: 28px; }
-.brand b { font-weight: 800; letter-spacing: .24em; }
+.brand b { font-weight: 800; letter-spacing: .16em; }
+.brand b i { font-style: normal; color: var(--accent); }
 .brand span { font: 12px Mono, monospace; color: var(--accent); border-left: 1px solid var(--hi); padding-left: 10px; }
 nav { margin-left: auto; display: flex; gap: 20px; font-size: 14px; }
 nav a { color: var(--dim); }
@@ -89,12 +90,12 @@ html:not([lang=en]) [data-l=en], html:not([lang=ru]) [data-l=ru] { display: none
 </head>
 <body>
 <header><div class="wrap">
-  <a class="brand" href="#"><img src="logo.svg" alt=""><b>IDDLER</b><span>by excruciation</span></a>
+  <a class="brand" href="#"><img src="logo.svg" alt=""><b>STEAM<i>IDLER</i></b><span>by excruciation</span></a>
   <nav>
     <a href="#features"><span data-l="en">Features</span><span data-l="ru">Возможности</span></a>
     <a href="#screens"><span data-l="en">Screens</span><span data-l="ru">Скриншоты</span></a>
     <a href="#install"><span data-l="en">Install</span><span data-l="ru">Установка</span></a>
-    <a href="https://github.com/excruciation69/iddler">GitHub</a>
+    <a href="https://github.com/excruciation69/SteamIdler">GitHub</a>
   </nav>
   <div class="lang"><button data-set="ru">RU</button><button data-set="en">ENG</button></div>
 </div></header>
@@ -104,10 +105,10 @@ html:not([lang=en]) [data-l=en], html:not([lang=ru]) [data-l=ru] { display: none
   <p data-l="en">Hours, card drops, achievements, an inventory and market manager, keys and freebies for all your accounts at once. Free, open source, and Steam itself doesn't even need to be running.</p>
   <p data-l="ru">Часы, карточки, ачивки, инвентарь и маркет, ключи и халява сразу для всех твоих аккаунтов. Бесплатно, с открытым кодом, и сам Steam даже не нужно запускать.</p>
   <div class="btns">
-    <a class="btn primary" href="https://github.com/excruciation69/iddler/releases/latest"><span data-l="en">Download</span><span data-l="ru">Скачать</span></a>
-    <a class="btn" href="https://github.com/excruciation69/iddler"><span data-l="en">Source code</span><span data-l="ru">Исходный код</span></a>
+    <a class="btn primary" href="https://github.com/excruciation69/SteamIdler/releases/latest"><span data-l="en">Download</span><span data-l="ru">Скачать</span></a>
+    <a class="btn" href="https://github.com/excruciation69/SteamIdler"><span data-l="en">Source code</span><span data-l="ru">Исходный код</span></a>
   </div>
-  <div class="shot"><img src="screenshots/hub-en.png" data-l="en" alt="Iddler hub"><img src="screenshots/hub-ru.png" data-l="ru" alt="Хаб Iddler"></div>
+  <div class="shot"><img src="screenshots/hub-en.png" data-l="en" alt="SteamIdler hub"><img src="screenshots/hub-ru.png" data-l="ru" alt="Хаб SteamIdler"></div>
 </div>
 
 <section id="features"><div class="wrap">
@@ -150,13 +151,13 @@ html:not([lang=en]) [data-l=en], html:not([lang=ru]) [data-l=ru] { display: none
   <h2><span data-l="en">Install</span><span data-l="ru">Установка</span></h2>
   <div class="steps">
     <div class="card"><b>macOS 11+</b>
-      <span data-l="en">Move Iddler.app to Applications and run once in Terminal:</span><span data-l="ru">Перетащи Iddler.app в «Программы» и один раз выполни в Терминале:</span>
-      <pre>xattr -cr /Applications/Iddler.app && codesign --force --deep -s - /Applications/Iddler.app</pre></div>
+      <span data-l="en">Move SteamIdler.app to Applications and run once in Terminal:</span><span data-l="ru">Перетащи SteamIdler.app в «Программы» и один раз выполни в Терминале:</span>
+      <pre>xattr -cr /Applications/SteamIdler.app && codesign --force --deep -s - /Applications/SteamIdler.app</pre></div>
     <div class="card"><b>Windows 10/11</b>
       <span data-l="en">Run the .exe. If SmartScreen warns you: More info, then Run anyway. The icon lives in the tray.</span><span data-l="ru">Запусти .exe. Если SmartScreen предупредит: «Подробнее», затем «Выполнить в любом случае». Значок живёт в трее.</span></div>
     <div class="card"><b>Linux</b>
       <span data-l="en">Unpack and run; the hub opens in your browser.</span><span data-l="ru">Распакуй и запусти, хаб откроется в браузере.</span>
-      <pre>tar -xzf Iddler-*-linux-amd64.tar.gz && ./iddler</pre></div>
+      <pre>tar -xzf SteamIdler-*-linux-amd64.tar.gz && ./steamidler</pre></div>
   </div>
 </div></section>
 
@@ -164,16 +165,16 @@ html:not([lang=en]) [data-l=en], html:not([lang=ru]) [data-l=ru] { display: none
   <img src="donate-qr.png" alt="USDT TRC20">
   <div>
     <h2><span data-l="en">Support the author</span><span data-l="ru">Поддержать автора</span></h2>
-    <p class="lead" data-l="en">Iddler is free. If it saves you time, a tip keeps new features coming.</p>
-    <p class="lead" data-l="ru">Iddler бесплатный. Если он экономит тебе время, поддержка помогает делать новые функции.</p>
+    <p class="lead" data-l="en">SteamIdler is free. If it saves you time, a tip keeps new features coming.</p>
+    <p class="lead" data-l="ru">SteamIdler бесплатный. Если он экономит тебе время, поддержка помогает делать новые функции.</p>
     <p><b>USDT · TRC20</b><br><code>TUWXd4f3g3pSjxEgM7upWtCBdn774dJgPu</code></p>
     <p><b>Binance Pay ID</b><br><code>446743475</code></p>
-    <p><a href="https://steamcommunity.com/groups/iddle2003"><span data-l="en">Iddler group on Steam</span><span data-l="ru">Группа Iddler в Steam</span></a></p>
+    <p><a href="https://steamcommunity.com/groups/iddle2003"><span data-l="en">SteamIdler group on Steam</span><span data-l="ru">Группа SteamIdler в Steam</span></a></p>
   </div>
 </div></section>
 
 <footer><div class="wrap">
-  <span>Iddler by excruciation · MIT</span>
+  <span>SteamIdler by excruciation · MIT</span>
   <span data-l="en">Not affiliated with Valve. Steam is a trademark of Valve Corporation.</span>
   <span data-l="ru">Проект не связан с Valve. Steam является товарным знаком Valve Corporation.</span>
 </div></footer>

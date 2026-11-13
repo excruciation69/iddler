@@ -7,9 +7,9 @@ import (
 	"testing"
 	"time"
 
-	"iddler/internal/hub"
-	"iddler/internal/platform"
-	"iddler/internal/steam/steamtest"
+	"steamidler/internal/hub"
+	"steamidler/internal/platform"
+	"steamidler/internal/steam/steamtest"
 )
 
 // UI_SERVE=1 go test ./internal/server -run TestServeUI : a live demo against the fake Steam, for browser checks.
@@ -27,10 +27,10 @@ func TestServeUI(t *testing.T) {
 	if err := s.Listen(); err != nil {
 		t.Fatal(err)
 	}
-	os.WriteFile("/tmp/iddler_ui_url", []byte(s.Base()), 0o644)
+	os.WriteFile("/tmp/steamidler_ui_url", []byte(s.Base()), 0o644)
 	fmt.Println("UI", s.Base()+"/?k=testkey")
 	main, alt := "gleb", "gleb_alt"
-	if os.Getenv("IDDLER_DEMO_NAME") != "" {
+	if os.Getenv("STEAMIDLER_DEMO_NAME") != "" {
 		main, alt = "kestrel", "marlin"
 	}
 	id, _ := h.AddAccount(main, "secret", true)

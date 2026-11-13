@@ -21,7 +21,7 @@ import (
 	"sync"
 	"time"
 
-	"iddler/internal/steam"
+	"steamidler/internal/steam"
 )
 
 const SteamID = 76561198000000001
@@ -389,9 +389,9 @@ func schema() []byte {
 	return k.Bytes()
 }
 
-// personaName is "Gleb" in tests; IDDLER_DEMO_NAME changes it for screenshots.
+// personaName is "Gleb" in tests; STEAMIDLER_DEMO_NAME changes it for screenshots.
 func personaName() string {
-	if n := os.Getenv("IDDLER_DEMO_NAME"); n != "" {
+	if n := os.Getenv("STEAMIDLER_DEMO_NAME"); n != "" {
 		return n
 	}
 	return "Gleb"

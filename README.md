@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://excruciation69.github.io/iddler/"><img src="docs/social.png" width="100%" alt="Iddler by excruciation"></a>
+  <a href="https://excruciation69.github.io/SteamIdler/"><img src="docs/social.png" width="100%" alt="SteamIdler by excruciation, a Steam idler"></a>
 </p>
 
 <p align="center">
@@ -11,7 +11,7 @@
 </p>
 
 <p align="center">
-  <a href="https://excruciation69.github.io/iddler/">Website</a>
+  <a href="https://excruciation69.github.io/SteamIdler/">Website</a>
   &nbsp;&nbsp;·&nbsp;&nbsp;
   <a href="CHANGELOG.md">Changelog</a>
   &nbsp;&nbsp;·&nbsp;&nbsp;
@@ -20,7 +20,7 @@
 
 <br>
 
-Iddler takes care of the routine side of Steam. It idles hours, collects card drops, opens achievements,
+**SteamIdler** is a free Steam idler and account manager. It takes care of the routine side of Steam: it idles hours, collects card drops, opens achievements,
 sells what you don't need and activates keys, for every account you own, quietly in the background.
 
 It is a single native application for macOS, Windows and Linux. There is nothing else to install:
@@ -98,15 +98,15 @@ no Steam client, no runtime, no configuration files.
 
 Builds for every platform are attached to the [latest release](../../releases/latest).
 
-**macOS 11 or later**, Apple Silicon and Intel. Move Iddler.app to Applications and run once in Terminal:
+**macOS 11 or later**, Apple Silicon and Intel. Move SteamIdler.app to Applications and run once in Terminal:
 
 ```sh
-xattr -cr /Applications/Iddler.app && codesign --force --deep -s - /Applications/Iddler.app
+xattr -cr /Applications/SteamIdler.app && codesign --force --deep -s - /Applications/SteamIdler.app
 ```
 
 **Windows 10 and 11**, x64 and ARM. Run the `.exe`. If SmartScreen asks, choose *More info*, then *Run anyway*.
 
-**Linux**, x64 and arm64. Extract the archive and start `./iddler`. The interface opens in your browser.
+**Linux**, x64 and arm64. Extract the archive and start `./steamidler`. The interface opens in your browser.
 
 <br>
 
@@ -123,14 +123,14 @@ that changes with every launch.
 <details>
 <summary>Is it safe for my account?</summary>
 <br>
-Idling hours and collecting cards are long established practices, and Iddler connects to Steam exactly as the
+Idling hours and collecting cards are long established practices, and SteamIdler connects to Steam exactly as the
 official client does. Changing achievements is against the Steam Subscriber Agreement; avoid it in games with VAC or ranked play.
 </details>
 
 <details>
 <summary>Does Steam have to be running?</summary>
 <br>
-No. Iddler connects on its own. If you start playing on another device, idling pauses and resumes afterwards.
+No. SteamIdler connects on its own. If you start playing on another device, idling pauses and resumes afterwards.
 </details>
 
 <details>
@@ -142,7 +142,7 @@ Yes, once a <code>.maFile</code> is added in the account settings. Without it, l
 <details>
 <summary>Where are my settings stored?</summary>
 <br>
-<code>~/Library/Application Support/Iddler</code> on macOS, <code>%APPDATA%\Iddler</code> on Windows and <code>~/.config/iddler</code> on Linux.
+<code>~/Library/Application Support/SteamIdler</code> on macOS, <code>%APPDATA%\SteamIdler</code> on Windows and <code>~/.config/steamidler</code> on Linux.
 </details>
 
 <br>
@@ -152,7 +152,7 @@ Yes, once a <code>.maFile</code> is added in the account settings. Without it, l
 Go 1.24 and Python 3 are required.
 
 ```sh
-git clone https://github.com/excruciation69/iddler && cd iddler
+git clone https://github.com/excruciation69/SteamIdler && cd steamidler
 go test ./...
 ./scripts/build.sh
 ```
@@ -163,7 +163,7 @@ Every tag of the form `v*` is built and published automatically.
 
 ## Support
 
-Iddler is free. If it is useful to you, you are welcome to support its development.
+SteamIdler is free. If it is useful to you, you are welcome to support its development.
 
 <table>
   <tr>
@@ -188,4 +188,4 @@ Iddler is free. If it is useful to you, you are welcome to support its developme
 
 ---
 
-<sub>Released under the <a href="LICENSE">MIT License</a>. © excruciation. Iddler is not affiliated with Valve Corporation. Steam is a trademark of Valve Corporation.</sub>
+<sub>Released under the <a href="LICENSE">MIT License</a>. © excruciation. SteamIdler is not affiliated with Valve Corporation. Steam is a trademark of Valve Corporation.</sub>

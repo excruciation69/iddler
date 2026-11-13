@@ -1,13 +1,13 @@
-// Iddler window, Dock icon and menu bar square for macOS (JavaScript for Automation).
+// SteamIdler window, Dock icon and menu bar square for macOS (JavaScript for Automation).
 //
-// Normally Iddler compiles this file into a small stay-open app ("applet"): macOS then shows it
-// in the Dock as Iddler and calls run() once. As a fallback it also runs under
+// Normally SteamIdler compiles this file into a small stay-open app ("applet"): macOS then shows it
+// in the Dock as SteamIdler and calls run() once. As a fallback it also runs under
 // osascript -l JavaScript menubar.js --child BASE KEY, menu bar only.
 ObjC.import('Cocoa');
 ObjC.import('WebKit');
 ObjC.import('stdlib');
 
-var DIR = __IDDLER_DIR__; // filled in by Iddler: where shell.json with the address and key lives
+var DIR = __STEAMIDLER_DIR__; // filled in by SteamIdler: where shell.json with the address and key lives
 var APPLET = true, BASE = '', KEY = '';
 var app, ctl, item, miStatus, miOpen, miToggle, miQuit, miQuitApp, miClose, miHide;
 var win = null, web = null, state = null, labels = {};
@@ -79,7 +79,7 @@ function showWindow() {
   var rect = $.NSMakeRect(0, 0, 1160, 760);
   win = $.NSWindow.alloc.initWithContentRectStyleMaskBackingDefer(rect, 15, 2, false);
   win.releasedWhenClosed = false;
-  win.title = 'Iddler';
+  win.title = 'SteamIdler';
   win.titleVisibility = 1; // the page draws its own header, so the name shows once
   win.titlebarAppearsTransparent = true;
   win.backgroundColor = $.NSColor.colorWithSRGBRedGreenBlueAlpha(11 / 255, 11 / 255, 11 / 255, 1);
@@ -94,7 +94,7 @@ function showWindow() {
 
   win.delegate = ctl;
   win.center;
-  win.setFrameAutosaveName('IddlerMain');
+  win.setFrameAutosaveName('SteamIdlerMain');
   win.makeKeyAndOrderFront(null);
   app.activateIgnoringOtherApps(true);
 }
@@ -136,7 +136,7 @@ function poll() {
     if (misses % 3 === 0) readConfig(); // the engine may have restarted on a new port
     if (misses > 40) $.exit(0); // the engine is gone; it starts a fresh helper when it comes back
     state = null;
-    miStatus.title = 'Iddler · ' + L('menu.noEngine', 'Not connected');
+    miStatus.title = 'SteamIdler · ' + L('menu.noEngine', 'Not connected');
     return;
   }
   misses = 0;
@@ -149,8 +149,8 @@ function poll() {
   setPolicy(APPLET && !b.hideDock ? 0 : 1);
   if (b.show) showWindow();
   item.button.title = b.active && b.menuTime ? ' ' + fmt(b.sessionMs) : '';
-  miStatus.title = 'Iddler · ' + L('menu.' + b.status, b.status);
-  miOpen.title = L('menu.open', 'Open Iddler');
+  miStatus.title = 'SteamIdler · ' + L('menu.' + b.status, b.status);
+  miOpen.title = L('menu.open', 'Open SteamIdler');
   miToggle.title = b.active ? L('menu.stopAll', 'Stop idling') : L('menu.startAll', 'Start idling');
   miToggle.enabled = b.accounts > 0;
   miQuit.title = miQuitApp.title = L('menu.quit', 'Quit');
@@ -177,7 +177,7 @@ function setup() {
   else setPolicy(1); // under osascript the Dock would show "osascript": menu bar only
 
   ObjC.registerSubclass({
-    name: 'IddlerShell',
+    name: 'SteamIdlerShell',
     superclass: 'NSObject',
     protocols: ['NSWindowDelegate'],
     methods: {
@@ -193,7 +193,7 @@ function setup() {
       'willQuit:': { types: ['void', ['id']], implementation: function () { if (!quitting) get('/api/menu/quit'); } }
     }
   });
-  ctl = $.IddlerShell.alloc.init;
+  ctl = $.SteamIdlerShell.alloc.init;
   $.NSNotificationCenter.defaultCenter.addObserverSelectorNameObject(ctl, 'willQuit:', 'NSApplicationWillTerminateNotification', null);
 
   IMG = { lit: square(true, false), dark: square(false, false), faded: square(false, true) };
@@ -210,10 +210,10 @@ function setup() {
     m.addItem(mi);
     return mi;
   }
-  miStatus = add(menu, 'Iddler');
+  miStatus = add(menu, 'SteamIdler');
   miStatus.enabled = false;
   menu.addItem($.NSMenuItem.separatorItem);
-  miOpen = add(menu, 'Open Iddler', 'openWindow:');
+  miOpen = add(menu, 'Open SteamIdler', 'openWindow:');
   miToggle = add(menu, 'Start idling', 'toggleIdle:');
   menu.addItem($.NSMenuItem.separatorItem);
   miQuit = add(menu, 'Quit', 'quitApp:');
@@ -223,8 +223,8 @@ function setup() {
   var mainMenu = $.NSMenu.alloc.init;
   var appItem = $.NSMenuItem.alloc.init;
   mainMenu.addItem(appItem);
-  var appMenu = $.NSMenu.alloc.initWithTitle('Iddler');
-  miHide = appMenu.addItemWithTitleActionKeyEquivalent('Hide Iddler', 'hide:', 'h');
+  var appMenu = $.NSMenu.alloc.initWithTitle('SteamIdler');
+  miHide = appMenu.addItemWithTitleActionKeyEquivalent('Hide SteamIdler', 'hide:', 'h');
   miClose = appMenu.addItemWithTitleActionKeyEquivalent('Close', 'performClose:', 'w');
   appMenu.addItem($.NSMenuItem.separatorItem);
   miQuitApp = add(appMenu, 'Quit', 'quitApp:', 'q');

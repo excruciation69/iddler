@@ -1,13 +1,13 @@
-IDDLER by excruciation: установка на Mac
+SteamIdler by excruciation: установка на Mac
 
-1. Перетащи «Iddler.app» в папку «Программы».
+1. Перетащи «SteamIdler.app» в папку «Программы».
 
 2. Открой Терминал и вставь одну команду (приложение не подписано сертификатом Apple, команда разрешает запуск):
 
-xattr -cr /Applications/Iddler.app && codesign --force --deep -s - /Applications/Iddler.app
+xattr -cr /Applications/SteamIdler.app && codesign --force --deep -s - /Applications/SteamIdler.app
 
-3. Запусти Iddler. При первом запуске он пару секунд собирает своё окно, потом оно откроется само.
-   Значок Iddler появится в Dock, а вверху справа, в строке меню, будет квадратик статуса:
+3. Запусти SteamIdler. При первом запуске он пару секунд собирает своё окно, потом оно откроется само.
+   Значок SteamIdler появится в Dock, а вверху справа, в строке меню, будет квадратик статуса:
    пустой: не в сети, закрашен: в сети, мигает: идёт накрутка.
 
 Убрать значок из Dock: «Общие настройки» → «Показывать значок в Dock».

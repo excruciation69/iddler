@@ -1,6 +1,6 @@
 'use strict';
 // Core: state, translations, DOM helpers, icons and the API client.
-// Iddler UI. One page, no framework: data arrives over SSE, actions go through /api/call.
+// SteamIdler UI. One page, no framework: data arrives over SSE, actions go through /api/call.
 
 const Q = new URLSearchParams(location.search);
 const KEY = Q.get('k') || '';
@@ -10,7 +10,7 @@ if (NATIVE) document.documentElement.classList.add('native');
 const S = { hub: null, bots: {}, games: {}, logs: [], dict: {}, lang: '', i18n: {}, live: false, attempt: {}, langAt: 0 };
 const TRC20 = 'TUWXd4f3g3pSjxEgM7upWtCBdn774dJgPu';
 const BINANCE_ID = '446743475';
-const GITHUB = 'https://github.com/excruciation69/iddler';
+const GITHUB = 'https://github.com/excruciation69/SteamIdler';
 const STEAM_PROFILE = 'https://steamcommunity.com/profiles/76561199171650128/';
 const TELEGRAM = 'https://t.me/excruciation69';
 
@@ -130,7 +130,7 @@ function memo() {
 async function call(name, args = {}) {
   const r = await fetch('/api/call/' + name, {
     method: 'POST',
-    headers: { 'X-Iddler-Key': KEY, 'Content-Type': 'application/json' },
+    headers: { 'X-SteamIdler-Key': KEY, 'Content-Type': 'application/json' },
     body: JSON.stringify(args),
   });
   if (!r.ok) throw new Error('err.network');

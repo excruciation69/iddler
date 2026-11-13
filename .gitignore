@@ -2,4 +2,4 @@
 *.exe
 *.test
 .DS_Store
-/cmd/iddler/iddler
+/cmd/steamidler/steamidler

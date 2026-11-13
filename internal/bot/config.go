@@ -6,7 +6,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"iddler/internal/steam"
+	"steamidler/internal/steam"
 )
 
 // Module ids

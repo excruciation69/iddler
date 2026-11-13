@@ -66,10 +66,10 @@ func New() Platform { return win{} }
 
 func DataDir() string {
 	if d := os.Getenv("APPDATA"); d != "" {
-		return filepath.Join(d, "Iddler")
+		return filepath.Join(d, "SteamIdler")
 	}
 	home, _ := os.UserHomeDir()
-	return filepath.Join(home, "AppData", "Roaming", "Iddler")
+	return filepath.Join(home, "AppData", "Roaming", "SteamIdler")
 }
 
 func hidden(cmd *exec.Cmd) *exec.Cmd {
@@ -136,19 +136,19 @@ func (s dpapi) Delete(k string) error { return os.Remove(s.path(k)) }
 const runKey = `HKCU\Software\Microsoft\Windows\CurrentVersion\Run`
 
 func (win) LoginItemEnabled() bool {
-	return hidden(exec.Command("reg", "query", runKey, "/v", "Iddler")).Run() == nil
+	return hidden(exec.Command("reg", "query", runKey, "/v", "SteamIdler")).Run() == nil
 }
 
 func (win) SetLoginItem(on bool) error {
 	if !on {
-		hidden(exec.Command("reg", "delete", runKey, "/v", "Iddler", "/f")).Run()
+		hidden(exec.Command("reg", "delete", runKey, "/v", "SteamIdler", "/f")).Run()
 		return nil
 	}
 	exe, err := os.Executable()
 	if err != nil {
 		return err
 	}
-	return hidden(exec.Command("reg", "add", runKey, "/v", "Iddler", "/t", "REG_SZ", "/d", `"`+exe+`" --background`, "/f")).Run()
+	return hidden(exec.Command("reg", "add", runKey, "/v", "SteamIdler", "/t", "REG_SZ", "/d", `"`+exe+`" --background`, "/f")).Run()
 }
 
 // ---- keep awake: reset the idle timer every 30s
@@ -314,7 +314,7 @@ func copyUTF16(dst []uint16, s string) {
 func wstr(s string) *uint16 { p, _ := syscall.UTF16PtrFromString(s); return p }
 
 func StartShell(c ShellConfig) error {
-	icon := filepath.Join(c.Dir, "iddler.ico")
+	icon := filepath.Join(c.Dir, "steamidler.ico")
 	os.WriteFile(icon, c.Asset, 0o644)
 	t := &tray{cfg: c}
 	current = t
@@ -332,10 +332,10 @@ func StartShell(c ShellConfig) error {
 func (t *tray) run(iconPath string, ready chan error) {
 	runtime.LockOSThread()
 	inst, _, _ := pGetModuleHandle.Call(0)
-	cls := wndClassEx{LpfnWndProc: syscall.NewCallback(t.wndProc), HInstance: inst, LpszClassName: wstr("IddlerTray")}
+	cls := wndClassEx{LpfnWndProc: syscall.NewCallback(t.wndProc), HInstance: inst, LpszClassName: wstr("SteamIdlerTray")}
 	cls.CbSize = uint32(unsafe.Sizeof(cls))
 	pRegisterClassEx.Call(uintptr(unsafe.Pointer(&cls)))
-	hwnd, _, err := pCreateWindowEx.Call(0, uintptr(unsafe.Pointer(wstr("IddlerTray"))), uintptr(unsafe.Pointer(wstr("Iddler"))),
+	hwnd, _, err := pCreateWindowEx.Call(0, uintptr(unsafe.Pointer(wstr("SteamIdlerTray"))), uintptr(unsafe.Pointer(wstr("SteamIdler"))),
 		0, 0, 0, 0, 0, ^uintptr(2), 0, inst, 0) // HWND_MESSAGE
 	if hwnd == 0 {
 		ready <- err
@@ -347,7 +347,7 @@ func (t *tray) run(iconPath string, ready chan error) {
 	hIcon, _, _ := pLoadImage.Call(0, uintptr(unsafe.Pointer(wstr(iconPath))), 1, 0, 0, 0x10|0x40)
 	t.nid = notifyIconData{HWnd: hwnd, UID: 1, UFlags: nifMessage | nifIcon | nifTip, UCallbackMessage: wmTray, HIcon: hIcon}
 	t.nid.CbSize = uint32(unsafe.Sizeof(t.nid))
-	copyUTF16(t.nid.SzTip[:], "Iddler")
+	copyUTF16(t.nid.SzTip[:], "SteamIdler")
 	pShellNotifyIcon.Call(nimAdd, uintptr(unsafe.Pointer(&t.nid)))
 	pSetTimer.Call(hwnd, 1, 1500, 0)
 	ready <- nil
@@ -383,7 +383,7 @@ func (t *tray) wndProc(hwnd, msg, wp, lp uintptr) uintptr {
 		if st.Show {
 			openWindow(t.cfg.WindowURL(), t.cfg.Dir)
 		}
-		tip := "Iddler · " + st.Labels["menu."+st.Status]
+		tip := "SteamIdler · " + st.Labels["menu."+st.Status]
 		t.mu.Lock()
 		copyUTF16(t.nid.SzTip[:], tip)
 		t.nid.UFlags = nifTip
@@ -405,7 +405,7 @@ func (t *tray) menu() {
 	add := func(id uintptr, flags uintptr, text string) {
 		pAppendMenu.Call(m, flags, id, uintptr(unsafe.Pointer(wstr(text))))
 	}
-	add(0, 1, "Iddler · "+st.Labels["menu."+st.Status]) // grayed
+	add(0, 1, "SteamIdler · "+st.Labels["menu."+st.Status]) // grayed
 	add(0, 0x800, "")
 	add(1, 0, st.Labels["menu.open"])
 	if st.Active {
@@ -433,4 +433,17 @@ func (t *tray) menu() {
 		pPostQuitMessage.Call(0)
 		go t.cfg.OnExit()
 	}
+}
+
+// MigrateLegacy moves an install made under the old name. It reports whether the old
+// autostart entry was on, so the caller can turn it on again under the new name.
+func MigrateLegacy() (loginItem bool) {
+	if d := os.Getenv("APPDATA"); d != "" {
+		moveDir(filepath.Join(d, legacyName), DataDir())
+	}
+	if hidden(exec.Command("reg", "query", runKey, "/v", legacyName)).Run() == nil {
+		hidden(exec.Command("reg", "delete", runKey, "/v", legacyName, "/f")).Run()
+		return true
+	}
+	return false
 }

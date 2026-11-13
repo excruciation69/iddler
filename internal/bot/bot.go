@@ -9,7 +9,7 @@ import (
 	"sync"
 	"time"
 
-	"iddler/internal/steam"
+	"steamidler/internal/steam"
 )
 
 // Host is what a bot needs from the app around it.
@@ -23,7 +23,7 @@ type Host interface {
 	DeleteSecret(key string)
 }
 
-const machineName = "Iddler"
+const machineName = "SteamIdler"
 
 type Bot struct {
 	ID   string

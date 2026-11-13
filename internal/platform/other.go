@@ -23,11 +23,11 @@ type unix struct{}
 func New() Platform { return unix{} }
 
 func DataDir() string {
-	if d := os.Getenv("IDDLER_DIR"); d != "" {
+	if d := os.Getenv("STEAMIDLER_DIR"); d != "" {
 		return d
 	}
 	home, _ := os.UserHomeDir()
-	return filepath.Join(home, ".config", "iddler")
+	return filepath.Join(home, ".config", "steamidler")
 }
 
 func (unix) Secrets(dir string) Secrets {
@@ -40,7 +40,7 @@ func autostartPath() string {
 		home, _ := os.UserHomeDir()
 		dir = filepath.Join(home, ".config")
 	}
-	return filepath.Join(dir, "autostart", "iddler.desktop")
+	return filepath.Join(dir, "autostart", "steamidler.desktop")
 }
 
 func (unix) LoginItemEnabled() bool { _, err := os.Stat(autostartPath()); return err == nil }
@@ -56,7 +56,7 @@ func (unix) SetLoginItem(on bool) error {
 	if err != nil {
 		return err
 	}
-	entry := "[Desktop Entry]\nType=Application\nName=Iddler\nExec=\"" + exe + "\" --background\nX-GNOME-Autostart-enabled=true\n"
+	entry := "[Desktop Entry]\nType=Application\nName=SteamIdler\nExec=\"" + exe + "\" --background\nX-GNOME-Autostart-enabled=true\n"
 	os.MkdirAll(filepath.Dir(autostartPath()), 0o755)
 	return os.WriteFile(autostartPath(), []byte(entry), 0o644)
 }
@@ -66,7 +66,7 @@ func (unix) KeepAwake() func() {
 	if err != nil {
 		return func() {}
 	}
-	cmd := exec.Command(path, "--what=idle:sleep", "--who=Iddler", "--why=Idling Steam games", "sleep", "infinity")
+	cmd := exec.Command(path, "--what=idle:sleep", "--who=SteamIdler", "--why=Idling Steam games", "sleep", "infinity")
 	if cmd.Start() != nil {
 		return func() {}
 	}
@@ -76,7 +76,7 @@ func (unix) KeepAwake() func() {
 
 func (unix) Notify(title, body string) {
 	if path, err := exec.LookPath("notify-send"); err == nil {
-		exec.Command(path, "-a", "Iddler", title, body).Start()
+		exec.Command(path, "-a", "SteamIdler", title, body).Start()
 	}
 }
 
@@ -98,4 +98,19 @@ func StartShell(c ShellConfig) error {
 		unix{}.OpenURL(c.Base + "/?k=" + c.Key)
 	}
 	return nil
+}
+
+// MigrateLegacy moves an install made under the old name. It reports whether the old
+// autostart entry was on, so the caller can turn it on again under the new name.
+func MigrateLegacy() (loginItem bool) {
+	if os.Getenv("STEAMIDLER_DIR") == "" {
+		home, _ := os.UserHomeDir()
+		moveDir(filepath.Join(home, ".config", "iddler"), DataDir())
+	}
+	old := filepath.Join(filepath.Dir(autostartPath()), "iddler.desktop")
+	if _, err := os.Stat(old); err == nil {
+		os.Remove(old)
+		return true
+	}
+	return false
 }

@@ -19,11 +19,11 @@ import (
 	"sync/atomic"
 	"time"
 
-	"iddler/internal/bot"
-	"iddler/internal/hub"
-	"iddler/internal/platform"
-	"iddler/internal/steam"
-	"iddler/ui"
+	"steamidler/internal/bot"
+	"steamidler/internal/hub"
+	"steamidler/internal/platform"
+	"steamidler/internal/steam"
+	"steamidler/ui"
 )
 
 const lanPort = 47803
@@ -68,7 +68,7 @@ func (s *Server) Listen() error {
 func (s *Server) handler(local bool) http.Handler {
 	mux := http.NewServeMux()
 	static, _ := fs.Sub(ui.FS, ".")
-	if dir := os.Getenv("IDDLER_UI_DIR"); dir != "" { // development: serve the UI from disk
+	if dir := os.Getenv("STEAMIDLER_UI_DIR"); dir != "" { // development: serve the UI from disk
 		static = os.DirFS(dir)
 	}
 	files := http.FileServer(http.FS(static))
@@ -101,7 +101,7 @@ func (s *Server) handler(local bool) http.Handler {
 
 func (s *Server) auth(next http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		k := r.Header.Get("X-Iddler-Key")
+		k := r.Header.Get("X-SteamIdler-Key")
 		if k == "" {
 			k = r.URL.Query().Get("k")
 		}

@@ -35,7 +35,7 @@ func GuardCode(sharedSecret string, at time.Time) (string, error) {
 	return string(code), nil
 }
 
-// MaFile holds what Iddler uses from a Steam Desktop Authenticator .maFile.
+// MaFile holds what SteamIdler uses from a Steam Desktop Authenticator .maFile.
 type MaFile struct {
 	Account        string
 	SharedSecret   string // login codes

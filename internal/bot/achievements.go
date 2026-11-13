@@ -8,7 +8,7 @@ import (
 	"sort"
 	"time"
 
-	"iddler/internal/steam"
+	"steamidler/internal/steam"
 )
 
 // Games with VAC or ranked online play: hidden from the achievements list by default.

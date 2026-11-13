@@ -8,7 +8,7 @@ import (
 	"sort"
 	"time"
 
-	"iddler/internal/steam"
+	"steamidler/internal/steam"
 )
 
 type DropRecord struct {

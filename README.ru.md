@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://excruciation69.github.io/iddler/"><img src="docs/social.png" width="100%" alt="Iddler by excruciation"></a>
+  <a href="https://excruciation69.github.io/SteamIdler/"><img src="docs/social.png" width="100%" alt="SteamIdler by excruciation, Steam idler"></a>
 </p>
 
 <p align="center">
@@ -11,7 +11,7 @@
 </p>
 
 <p align="center">
-  <a href="https://excruciation69.github.io/iddler/">Сайт</a>
+  <a href="https://excruciation69.github.io/SteamIdler/">Сайт</a>
   &nbsp;&nbsp;·&nbsp;&nbsp;
   <a href="CHANGELOG.md">Изменения</a>
   &nbsp;&nbsp;·&nbsp;&nbsp;
@@ -20,7 +20,7 @@
 
 <br>
 
-Iddler берёт на себя рутину Steam. Он набивает часы, собирает карточки, открывает достижения,
+**SteamIdler**: бесплатный Steam idler и менеджер аккаунтов. Он берёт на себя рутину Steam: набивает часы, собирает карточки, открывает достижения,
 продаёт ненужное и активирует ключи на всех твоих аккаунтах, тихо и в фоне.
 
 Это одно приложение для macOS, Windows и Linux. Больше ничего ставить не нужно:
@@ -98,15 +98,15 @@ Iddler берёт на себя рутину Steam. Он набивает час
 
 Сборки для всех систем прикреплены к [последнему релизу](../../releases/latest).
 
-**macOS 11 и новее**, Apple Silicon и Intel. Перенеси Iddler.app в «Программы» и один раз выполни в Терминале:
+**macOS 11 и новее**, Apple Silicon и Intel. Перенеси SteamIdler.app в «Программы» и один раз выполни в Терминале:
 
 ```sh
-xattr -cr /Applications/Iddler.app && codesign --force --deep -s - /Applications/Iddler.app
+xattr -cr /Applications/SteamIdler.app && codesign --force --deep -s - /Applications/SteamIdler.app
 ```
 
 **Windows 10 и 11**, x64 и ARM. Запусти `.exe`. Если SmartScreen спросит, нажми «Подробнее», затем «Выполнить в любом случае».
 
-**Linux**, x64 и arm64. Распакуй архив и запусти `./iddler`. Интерфейс откроется в браузере.
+**Linux**, x64 и arm64. Распакуй архив и запусти `./steamidler`. Интерфейс откроется в браузере.
 
 <br>
 
@@ -123,14 +123,14 @@ macOS или в DPAPI Windows. Интерфейс доступен только 
 <details>
 <summary>Это безопасно для аккаунта?</summary>
 <br>
-Накрутка часов и сбор карточек давно стали привычной практикой, а Iddler подключается к Steam так же, как
+Накрутка часов и сбор карточек давно стали привычной практикой, а SteamIdler подключается к Steam так же, как
 официальный клиент. Изменение достижений нарушает Соглашение подписчика Steam; не делай этого в играх с VAC и рейтингом.
 </details>
 
 <details>
 <summary>Нужно ли запускать Steam?</summary>
 <br>
-Нет. Iddler подключается сам. Если начать играть на другом устройстве, накрутка встанет на паузу и продолжится после.
+Нет. SteamIdler подключается сам. Если начать играть на другом устройстве, накрутка встанет на паузу и продолжится после.
 </details>
 
 <details>
@@ -142,7 +142,7 @@ macOS или в DPAPI Windows. Интерфейс доступен только 
 <details>
 <summary>Где хранятся настройки?</summary>
 <br>
-<code>~/Library/Application Support/Iddler</code> на macOS, <code>%APPDATA%\Iddler</code> на Windows и <code>~/.config/iddler</code> на Linux.
+<code>~/Library/Application Support/SteamIdler</code> на macOS, <code>%APPDATA%\SteamIdler</code> на Windows и <code>~/.config/steamidler</code> на Linux.
 </details>
 
 <br>
@@ -152,7 +152,7 @@ macOS или в DPAPI Windows. Интерфейс доступен только 
 Нужны Go 1.24 и Python 3.
 
 ```sh
-git clone https://github.com/excruciation69/iddler && cd iddler
+git clone https://github.com/excruciation69/SteamIdler && cd steamidler
 go test ./...
 ./scripts/build.sh
 ```
@@ -163,7 +163,7 @@ go test ./...
 
 ## Поддержка
 
-Iddler бесплатный. Если он тебе полезен, можно поддержать разработку.
+SteamIdler бесплатный. Если он тебе полезен, можно поддержать разработку.
 
 <table>
   <tr>
@@ -188,4 +188,4 @@ Iddler бесплатный. Если он тебе полезен, можно �
 
 ---
 
-<sub>Распространяется по <a href="LICENSE">лицензии MIT</a>. © excruciation. Iddler не связан с Valve Corporation. Steam является товарным знаком Valve Corporation.</sub>
+<sub>Распространяется по <a href="LICENSE">лицензии MIT</a>. © excruciation. SteamIdler не связан с Valve Corporation. Steam является товарным знаком Valve Corporation.</sub>
